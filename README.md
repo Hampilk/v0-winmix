@@ -1,30 +1,70 @@
-# League data editor clone
+# League Data Editor Pro
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+A professional tool for editing and managing League of Legends game data.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/zopmakuti-3602s-projects/v0-league-data-editor-clone)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/gI0KgF6mCHN)
+## Features
 
-## Overview
+- Edit champion statistics and abilities
+- Modify item properties and effects
+- Customize rune effects and values
+- Adjust summoner spell parameters
+- Track changes with detailed history
+- Import and export data in various formats
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+## Getting Started
 
-## Deployment
+### Prerequisites
 
-Your project is live at:
+- Node.js 18.0.0 or higher
+- npm or yarn
 
-**[https://vercel.com/zopmakuti-3602s-projects/v0-league-data-editor-clone](https://vercel.com/zopmakuti-3602s-projects/v0-league-data-editor-clone)**
+### Installation
 
-## Build your app
+1. Clone the repository:
+\`\`\`bash
+git clone https://github.com/yourusername/league-data-editor-pro.git
+\`\`\`
 
-Continue building your app on:
+2. Navigate to the project directory:
+\`\`\`bash
+cd league-data-editor-pro
+\`\`\`
 
-**[https://v0.dev/chat/projects/gI0KgF6mCHN](https://v0.dev/chat/projects/gI0KgF6mCHN)**
+3. Install dependencies:
+\`\`\`bash
+npm install
+# or
+yarn install
+\`\`\`
 
-## How It Works
+4. Start the development server:
+\`\`\`bash
+npm run dev
+# or
+yarn dev
+\`\`\`
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+5. Open your browser and navigate to `http://localhost:3000`
+
+## Documentation
+
+For detailed documentation, please visit the [docs](./docs) directory:
+
+- [Overview](./docs/README.md)
+- [Architecture](./docs/architecture.md)
+- [Getting Started](./docs/getting-started.md)
+- [Components](./docs/components/README.md)
+- [API Reference](./docs/api/README.md)
+
+## Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](./CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+## Acknowledgments
+
+- League of Legends is a registered trademark of Riot Games, Inc.
+- This tool is not endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends.
