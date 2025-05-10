@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { DashboardSidebar } from "@/components/sidebar"
+import { DashboardHeader } from "@/components/dashboard-header"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 // Mock data and services until we implement the actual data fetching
 const fetchLeagueById = async (id: string) => {
@@ -265,6 +267,12 @@ export default function LeagueAnalyticsView() {
     <div className="flex min-h-screen bg-[#0d1117]">
       <DashboardSidebar />
       <div className="container mx-auto px-4 py-6">
+        <DashboardHeader />
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">League Analytics</h1>
+          <p className="text-muted-foreground">Analyze league performance and statistics</p>
+        </div>
+
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-2xl font-semibold">{league.name} Analytics</h1>
@@ -320,6 +328,14 @@ export default function LeagueAnalyticsView() {
             </Tabs>
           </>
         )}
+        <Card>
+          <CardHeader>
+            <CardTitle>League Performance</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Content for the League Analytics page will be displayed here.</p>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

@@ -3,12 +3,13 @@
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { CalendarIcon, BarChartIcon, PlusIcon, SearchIcon } from "lucide-react"
 import { DashboardSidebar } from "@/components/sidebar"
+import { DashboardHeader } from "@/components/dashboard-header"
 
 // Mock data and services until we implement the actual data fetching
 const fetchLeagueById = async (id: string) => {
@@ -261,6 +262,23 @@ export default function LeagueManagementView() {
     <div className="flex min-h-screen bg-[#0d1117]">
       <DashboardSidebar />
       <div className="container mx-auto px-4 py-6">
+        <DashboardHeader />
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">League Management</h1>
+            <p className="text-muted-foreground">Manage league settings and teams</p>
+          </div>
+          <Button>Add New League</Button>
+        </div>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>League Management</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Content for the League Management page will be displayed here.</p>
+          </CardContent>
+        </Card>
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-2xl font-semibold">{league.name}</h1>

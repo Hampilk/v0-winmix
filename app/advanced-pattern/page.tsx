@@ -1,6 +1,6 @@
 import { DashboardHeader } from "@/components/dashboard-header"
-import { DashboardSidebar } from "@/components/sidebar"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { CardDescription } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { PatternRecognitionChart } from "@/components/pattern-recognition-chart"
 import { PatternList } from "@/components/pattern-list"
@@ -8,8 +8,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { DashboardSidebar } from "@/components/sidebar"
 
-export default function AdvancedPatternView() {
+export default function AdvancedPatternPage() {
   return (
     <div className="flex min-h-screen bg-[#0d1117]">
       <DashboardSidebar />

@@ -5,13 +5,12 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { DashboardSidebar } from "@/components/sidebar"
+import { DashboardHeader } from "@/components/dashboard-header"
 
 // Mock data and services until we implement the actual data fetching
 const fetchLeagueById = async (id: string) => {
@@ -197,51 +196,24 @@ export default function LeagueEditorView() {
   }
 
   return (
-    <div className="flex min-h-screen bg-[#0d1117]">
-      <DashboardSidebar />
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-semibold">
-            {isNewLeague ? "Create New League" : `Edit League: ${league.name}`}
-          </h1>
+    <div className="space-y-6">
+      <DashboardHeader />
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">League Editor</h1>
+          <p className="text-muted-foreground">Edit league details and settings</p>
         </div>
-
-        {error && (
-          <Alert variant="destructive" className="mb-4">
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        )}
-
-        {successMessage && (
-          <Alert className="mb-4 bg-green-50 text-green-800 dark:bg-green-900 dark:text-green-50">
-            <AlertDescription>{successMessage}</AlertDescription>
-          </Alert>
-        )}
-
-        <Card>
-          <CardContent className="pt-6">
-            <LeagueForm league={league} onChange={handleFormChange} onSubmit={handleSubmit} />
-
-            <div className="flex justify-end mt-6 space-x-4">
-              <Button variant="outline" onClick={handleCancel} disabled={isSaving}>
-                Cancel
-              </Button>
-              <Button onClick={handleSubmit} disabled={isSaving}>
-                {isSaving ? (
-                  <>
-                    <span className="animate-spin mr-2">⟳</span>
-                    {isNewLeague ? "Creating..." : "Saving..."}
-                  </>
-                ) : isNewLeague ? (
-                  "Create League"
-                ) : (
-                  "Save Changes"
-                )}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        <Button>Save Changes</Button>
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>League Editor</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p>Content for the League Editor page will be displayed here.</p>
+        </CardContent>
+      </Card>
     </div>
   )
 }

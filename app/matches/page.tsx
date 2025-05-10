@@ -11,6 +11,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge"
 import { PlusIcon, FilterIcon } from "lucide-react"
 import { DashboardSidebar } from "@/components/sidebar"
+import { DashboardHeader } from "@/components/dashboard-header"
+import { CardHeader, CardTitle } from "@/components/ui/card"
 
 // Mock data and services until we implement the actual data fetching
 const fetchMatches = async () => {
@@ -264,7 +266,7 @@ const MatchTable = ({ matches, onView, onEdit }: any) => {
 }
 
 // Main Page Component
-const MatchesPage = () => {
+const MatchesPageContent = () => {
   const [matches, setMatches] = useState([])
   const [leagues, setLeagues] = useState([])
   const [seasons, setSeasons] = useState([])
@@ -322,12 +324,29 @@ const MatchesPage = () => {
   )
 }
 
-export default function MatchesView() {
-  // Component implementation...
+export default function MatchesPage() {
   return (
     <div className="flex min-h-screen bg-[#0d1117]">
       <DashboardSidebar />
-      <MatchesPage />
+      <div className="space-y-6 w-full">
+        <DashboardHeader />
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">Matches</h1>
+            <p className="text-muted-foreground">View and manage match schedules</p>
+          </div>
+          <Button>Add New Match</Button>
+        </div>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Upcoming Matches</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <MatchesPageContent />
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

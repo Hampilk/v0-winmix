@@ -1,135 +1,162 @@
 "use client"
 
-import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Check, Edit, Eye, MoreHorizontal, Plus, Search, Trash } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
+import { ChevronLeft, ChevronRight, Edit, BarChart, PieChart } from "lucide-react"
 import type { League } from "@/types/league"
 
 interface LeagueTableProps {
   leagues: League[]
-  onView?: (id: string) => void
-  onEdit?: (id: string) => void
-  onDelete?: (id: string) => void
-  onConfirm?: (id: string) => void
-  onAddNew?: () => void
+  isLoading?: boolean
+  error?: string | null
+  page: number
+  totalPages: number
+  onPageChange: (page: number) => void
 }
 
-export function LeagueTable({ leagues = [], onView, onEdit, onDelete, onConfirm, onAddNew }: LeagueTableProps) {
-  const [searchQuery, setSearchQuery] = useState("")
+export function LeagueTable({
+  leagues,
+  isLoading = false,
+  error = null,
+  page,
+  totalPages,
+  onPageChange,
+}: LeagueTableProps) {
+  const router = useRouter()
 
-  const filteredLeagues = leagues.filter(
-    (league) =>
-      league.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      league.status.toLowerCase().includes(searchQuery.toLowerCase()),
-  )
+  const handleViewLeague = (id: string) => {
+    router.push(`/league/management/${id}`)
+  }
+
+  const handleEditLeague = (id: string) => {
+    router.push(`/league/editor/${id}`)
+  }
+
+  const handleViewAnalytics = (id: string) => {
+    router.push(`/league/analytics/${id}`)
+  }
+
+  const handleViewStats = (id: string) => {
+    router.push(`/league/stats/${id}`)
+  }
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "active":
+        return "bg-green-500 hover:bg-green-600"
+      case "inactive":
+        return "bg-yellow-500 hover:bg-yellow-600"
+      case "archived":
+        return "bg-gray-500 hover:bg-gray-600"
+      default:
+        return "bg-gray-500 hover:bg-gray-600"
+    }
+  }
+
+  if (error) {
+    return <div className="p-4 bg-red-900/20 rounded-md text-red-400">{error}</div>
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center py-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
+
+  if (leagues.length === 0) {
+    return (
+      <div className="text-center py-8 text-muted-foreground">
+        No leagues found. Try adjusting your filters or create a new league.
+      </div>
+    )
+  }
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <div className="relative w-64">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder="Search leagues..."
-            className="pl-8"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-
-        {onAddNew && (
-          <Button onClick={onAddNew}>
-            <Plus className="mr-2 h-4 w-4" />
-            New League
-          </Button>
-        )}
-      </div>
-
-      <div className="rounded-md border border-[#2d3748] overflow-hidden">
-        <Table>
-          <TableHeader>
-            <TableRow className="bg-[#131a29]">
-              <TableHead className="text-white">Season</TableHead>
-              <TableHead className="text-white">Winner</TableHead>
-              <TableHead className="text-white">Second Place</TableHead>
-              <TableHead className="text-white">Third Place</TableHead>
-              <TableHead className="text-white">Status</TableHead>
-              <TableHead className="text-white text-right">Actions</TableHead>
+    <>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Sport</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Seasons</TableHead>
+            <TableHead className="text-right">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {leagues.map((league) => (
+            <TableRow
+              key={league.id}
+              className="cursor-pointer hover:bg-muted/50"
+              onClick={() => handleViewLeague(league.id)}
+            >
+              <TableCell className="font-medium">{league.name}</TableCell>
+              <TableCell>{league.sportType}</TableCell>
+              <TableCell>
+                <Badge className={getStatusColor(league.status)}>
+                  {league.status.charAt(0).toUpperCase() + league.status.slice(1)}
+                </Badge>
+              </TableCell>
+              <TableCell>{league.seasons?.length || 0}</TableCell>
+              <TableCell className="text-right">
+                <div className="flex justify-end gap-2">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleViewStats(league.id)
+                    }}
+                    title="View Stats"
+                  >
+                    <PieChart className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleViewAnalytics(league.id)
+                    }}
+                    title="View Analytics"
+                  >
+                    <BarChart className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleEditLeague(league.id)
+                    }}
+                    title="Edit League"
+                  >
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                </div>
+              </TableCell>
             </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredLeagues.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
-                  No leagues found. {onAddNew && "Create a new league to get started."}
-                </TableCell>
-              </TableRow>
-            ) : (
-              filteredLeagues.map((league) => (
-                <TableRow key={league.id} className="border-[#2d3748]">
-                  <TableCell className="font-medium text-white">{league.name}</TableCell>
-                  <TableCell>{league.winner || "-"}</TableCell>
-                  <TableCell>{league.secondPlace || "-"}</TableCell>
-                  <TableCell>{league.thirdPlace || "-"}</TableCell>
-                  <TableCell>
-                    <Badge
-                      className={
-                        league.status === "In Progress"
-                          ? "bg-yellow-500"
-                          : league.status === "Completed"
-                            ? "bg-green-500"
-                            : league.status === "Upcoming"
-                              ? "bg-blue-500"
-                              : "bg-gray-500"
-                      }
-                    >
-                      {league.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      {onView && (
-                        <Button variant="ghost" size="icon" onClick={() => onView(league.id)}>
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                      )}
-                      {onEdit && (
-                        <Button variant="ghost" size="icon" onClick={() => onEdit(league.id)}>
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                      )}
-                      {onConfirm && (
-                        <Button variant="ghost" size="icon" onClick={() => onConfirm(league.id)}>
-                          <Check className="h-4 w-4" />
-                        </Button>
-                      )}
-                      {onDelete && (
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon">
-                              <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem className="text-red-500" onClick={() => onDelete(league.id)}>
-                              <Trash className="mr-2 h-4 w-4" />
-                              <span>Delete</span>
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      )}
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </div>
-    </div>
+          ))}
+        </TableBody>
+      </Table>
+
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center gap-2 mt-4">
+          <Button variant="outline" size="icon" onClick={() => onPageChange(page - 1)} disabled={page === 1}>
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <span className="text-sm">
+            Page {page} of {totalPages}
+          </span>
+          <Button variant="outline" size="icon" onClick={() => onPageChange(page + 1)} disabled={page === totalPages}>
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
+      )}
+    </>
   )
 }

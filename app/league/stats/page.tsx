@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { DashboardSidebar } from "@/components/sidebar"
+import { DashboardHeader } from "@/components/dashboard-header"
 
 // Mock data and services until we implement the actual data fetching
 const fetchLeagueById = async (id: string) => {
@@ -320,6 +321,12 @@ export default function LeagueStatsView() {
     <div className="flex min-h-screen bg-[#0d1117]">
       <DashboardSidebar />
       <div className="container mx-auto px-4 py-6">
+        <DashboardHeader />
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">League Stats</h1>
+          <p className="text-muted-foreground">View detailed league statistics</p>
+        </div>
+
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-2xl font-semibold">{league.name} Statistics</h1>
@@ -384,6 +391,14 @@ export default function LeagueStatsView() {
             )}
           </>
         )}
+        <Card>
+          <CardHeader>
+            <CardTitle>League Statistics</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Content for the League Stats page will be displayed here.</p>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

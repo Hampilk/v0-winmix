@@ -24,7 +24,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <div className="flex min-h-screen">
             <DashboardSidebar />
-            <div className="flex-1 overflow-auto">
+            <div className="flex-1 pl-64">
               <main className="p-6">{children}</main>
             </div>
           </div>

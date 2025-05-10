@@ -1,6 +1,7 @@
+import { CardDescription } from "@/components/ui/card"
 import { DashboardHeader } from "@/components/dashboard-header"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { DashboardSidebar } from "@/components/sidebar"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { PerformanceChart } from "@/components/analytics/performance-chart"
 import { TeamComparison } from "@/components/analytics/team-comparison"

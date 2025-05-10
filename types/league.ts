@@ -3,8 +3,9 @@ export interface League {
   name: string
   description: string
   sportType: string
-  status: "active" | "inactive" | "archived"
-  seasons: LeagueSeason[]
+  country?: string
+  status: "active" | "inactive" | "completed" | "upcoming" | "cancelled"
+  seasons?: LeagueSeason[]
 }
 
 export interface LeagueSeason {
@@ -13,7 +14,10 @@ export interface LeagueSeason {
   year: number
   startDate?: string
   endDate?: string
-  status?: "upcoming" | "active" | "completed"
+  status?: "active" | "upcoming" | "completed" | "cancelled"
+  matchCount?: number
+  matchesPlayed?: number
+  teams?: number
 }
 
 export interface LeagueAnalytics {
@@ -73,4 +77,38 @@ export interface LeagueStats {
     awayTeam: string
     score: string
   }[]
+}
+
+export interface Match {
+  id: string
+  leagueId: string
+  seasonId: string
+  date: string
+  homeTeamId: string
+  homeTeam: string
+  awayTeamId: string
+  awayTeam: string
+  homeScore: number | null
+  awayScore: number | null
+  status: "scheduled" | "live" | "completed" | "postponed" | "cancelled"
+  venue: string
+  referee?: string
+  attendance?: number
+  weather?: string
+  notes?: string
+  odds?: {
+    home: number
+    draw: number
+    away: number
+  }
+}
+
+export interface Team {
+  id: string
+  name: string
+  shortName: string
+  logo?: string
+  stadium?: string
+  manager?: string
+  founded?: number
 }
